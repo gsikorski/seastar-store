@@ -1,9 +1,8 @@
 FROM docker.io/fedora:34
 WORKDIR /home/src
-ADD Makefile ./
-ADD app.cc ./
-RUN dnf -y update \
+RUN mkdir -p opt \
+    && dnf -y update \
     && dnf -y install ccache git \
-    && git clone https://github.com/scylladb/seastar.git --depth=1 --branch=master \
-    && ./seastar/install-dependencies.sh
+    && git clone https://github.com/scylladb/seastar.git --depth=1 --branch=master /opt/seastar \
+    && /opt/seastar/install-dependencies.sh
 CMD /bin/bash

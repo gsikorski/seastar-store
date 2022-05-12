@@ -8,7 +8,7 @@
 
 ```
 $ docker build -t seastar-app-stub .
-$ docker run --rm -it seastar-app-stub
+$ docker run --rm -it -v $(pwd):/home/src seastar-app-stub
 ```
 The rest of the instructions assume this setup is completed and that you are in the running docker container.
 
