@@ -10,11 +10,12 @@
 $ docker build -t seastar-app-stub .
 $ docker run --rm -it seastar-app-stub
 ```
+The rest of the instructions assume this setup is completed and that you are in the running docker container.
 
 ## Building the app
 
 ```
-make app
+$ make app
 ```
 
 Note that the first invocation of this command might take a while as it will also compile seastar. Subsequent builds will be much faster.
@@ -22,7 +23,7 @@ Note that the first invocation of this command might take a while as it will als
 ## Running the app
 
 ```
-./app
+$ ./app
 ```
 
 Don't be alarmed by warnings like this:
@@ -41,5 +42,5 @@ INFO  2022-05-12 12:50:42,330 [shard 0] app.cc - HELLO WORLD
 
 To see the available seastar options:
 ```
-./app --help-seastar
+$ ./app --help-seastar
 ```
