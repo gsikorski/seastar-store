@@ -1,5 +1,13 @@
 # Ready-to-use stub seastar application
 
+Seastar is an application framework for high-performance server-side applications.
+* Website: http://seastar.io/
+* Github: https://github.com/scylladb/seastar.git
+* Documentation: http://docs.seastar.io/master/index.html
+* Tutorial: http://docs.seastar.io/master/tutorial.html
+
+Building seastar can be quite involved. This repo attempts to fast-track your way to your first seastar app, by providing a simple hello-world stub application, with simple build instruction that only require docker to work. Note that the setup instructions assume a UNIX-like environment (Linux, MacOS or WSL) but should work on Windows with minimal tweaking.
+
 ## Prerequisites
 
 `docker`
