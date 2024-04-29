@@ -1,4 +1,4 @@
-FROM docker.io/fedora:34
+FROM docker.io/fedora:38
 WORKDIR /home/src
 RUN mkdir -p opt \
     && dnf -y update \
