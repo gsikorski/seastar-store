@@ -33,12 +33,12 @@ storage::get(const std::string &key) {
     co_return json({key, item.value}).dump();
   }
   const auto opt_value = co_await permanent.find_one(key);
-  if (opt_value) {
-    cache[key] = cached_t{.value = *opt_value,
-                          .touch = std::chrono::steady_clock::now()};
-    if (cache.size() > cache_size)
-      evict();
-  }
+  if (!opt_value)
+    co_return std::optional<std::string>{};
+  cache[key] =
+      cached_t{.value = *opt_value, .touch = std::chrono::steady_clock::now()};
+  if (cache.size() > cache_size)
+    evict();
   co_return std::optional<std::string>{json({key, *opt_value}).dump()};
 }
 
