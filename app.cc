@@ -8,7 +8,6 @@ namespace bpo = boost::program_options;
 
 int main(int argc, char **argv) {
   app_template app;
-  auto warehouse = store::storage{};
   app.add_options()("cache-size", bpo::value<unsigned int>()->default_value(32),
                     "Cache size");
 
@@ -16,7 +15,9 @@ int main(int argc, char **argv) {
     return async([&] {
       httpd::http_server_control server;
       server.start("storage").get();
+      auto &&config = app.configuration();
       condition_variable exit_signal;
+      auto warehouse = store::storage{config["cache-size"].as<unsigned int>()};
       auto getter = store::get_handler{warehouse};
       auto putter = store::put_handler{warehouse};
       auto deleter = store::delete_handler{warehouse};
@@ -33,8 +34,6 @@ int main(int argc, char **argv) {
                       httpd::url("/values").remainder("key"), &deleter);
               })
           .get();
-      auto &&config = app.configuration();
-      warehouse.set_cache_size(config["cache-size"].as<unsigned int>());
       server.listen(uint16_t(8080))
           .handle_exception([](auto ep) {
             std::cerr << format(
